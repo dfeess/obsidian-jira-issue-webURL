@@ -50,6 +50,7 @@ export interface IJiraIssueSettings {
 export interface IJiraIssueAccountSettings {
     alias: string
     host: string
+    webBaseUrl: string
     authenticationType: EAuthenticationTypes
     username?: string
     password?: string

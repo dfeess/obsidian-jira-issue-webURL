@@ -42,6 +42,7 @@ export const DEFAULT_SETTINGS: IJiraIssueSettings = {
 export const DEFAULT_ACCOUNT: IJiraIssueAccountSettings = {
     alias: 'Default',
     host: 'https://mycompany.atlassian.net',
+    webBaseUrl: '',
     authenticationType: EAuthenticationTypes.OPEN,
     password: '',
     priority: 1,
@@ -89,6 +90,7 @@ export class JiraIssueSettingTab extends PluginSettingTab {
                     {
                         priority: 1,
                         host: SettingsData.host,
+                        webBaseUrl: DEFAULT_ACCOUNT.webBaseUrl,
                         authenticationType: SettingsData.authenticationType,
                         username: SettingsData.username,
                         password: SettingsData.password,
@@ -250,6 +252,15 @@ export class JiraIssueSettingTab extends PluginSettingTab {
                 .setValue(newAccount.host)
                 .onChange(async value => {
                     newAccount.host = value
+                }))
+        new Setting(containerEl)
+            .setName('Web Base URL')
+            .setDesc('Optional base URL used for links rendered in notes (e.g. https://jira.mycompany.com). Empty means fall back to Host.')
+            .addText(text => text
+                .setPlaceholder('Example: https://jira.mycompany.com')
+                .setValue(newAccount.webBaseUrl)
+                .onChange(async value => {
+                    newAccount.webBaseUrl = value
                 }))
         new Setting(containerEl)
             .setName('Authentication type')
